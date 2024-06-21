@@ -3051,7 +3051,22 @@ function Library:CreateWindow(...)
     function Window:SetWindowTitle(Title)
         WindowLabel.Text = Title;
     end;
+
+    local function UpdateTabPositions()
+        local centerX = TabArea.AbsoluteSize.X / 2
+        local totalWidth = 0
+        for _, button in ipairs(TabButtons) do
+            totalWidth = totalWidth + button.Size.X.Offset + 10 
+        end
     
+        local startX = centerX - totalWidth / 2
+        for i, button in ipairs(TabButtons) do
+            local offset = (i - 1) * (button.Size.X.Offset + 10)
+            button.Position = UDim2.new(0, startX + offset, 0, 0)
+        end
+    end
+
+    TabArea:GetPropertyChangedSignal('AbsoluteSize'):Connect(UpdateTabPositions)
     function Window:AddTab(Name)
         local Tab = {
             Groupboxes = {};
@@ -3175,22 +3190,10 @@ function Library:CreateWindow(...)
             TabButton.LayoutOrder = Position;
         end;
     
-        local function UpdateTabPositions()
-            local centerX = TabArea.AbsoluteSize.X / 2
-            local totalWidth = 0
-            for _, button in ipairs(TabButtons) do
-                totalWidth = totalWidth + button.Size.X.Offset + 10 -- Adding a padding of 10 between buttons
-            end
-    
-            local startX = centerX - totalWidth / 2
-            for i, button in ipairs(TabButtons) do
-                local offset = (i - 1) * (button.Size.X.Offset + 10)
-                button.Position = UDim2.new(0, startX + offset, 0, 0)
-            end
-        end
-    
         table.insert(TabButtons, TabButton)
         UpdateTabPositions()
+    
+        
     
         function Tab:AddGroupbox(Info)
             local Groupbox = {};
@@ -3493,7 +3496,6 @@ function Library:CreateWindow(...)
             end;
         end);
     
-        -- This was the first tab added, so we show it by default.
         if #TabContainer:GetChildren() == 1 then
             Tab:ShowTab();
         end;
