@@ -4,7 +4,7 @@ for i,v in pairs(({"Internal","HttpCache","Instances","Signals","Script","Physic
 end
 local InputService = cloneref(game:GetService('UserInputService'));
 local TextService = cloneref(game:GetService('TextService'));
-local CoreGui = cloneref(game:GetService('CoreGui'));
+local CoreGui = gethui();
 local Teams = cloneref(game:GetService('Teams'));
 local Players = cloneref(game:GetService('Players'));
 local RunService = cloneref(game:GetService('RunService'));
