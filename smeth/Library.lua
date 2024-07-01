@@ -4,7 +4,7 @@ for i,v in pairs(({"Internal","HttpCache","Instances","Signals","Script","Physic
 end
 local InputService = cloneref(game:GetService('UserInputService'));
 local TextService = cloneref(game:GetService('TextService'));
-local CoreGui = gethui();
+local CoreGui2 = gethui();
 local Teams = cloneref(game:GetService('Teams'));
 local Players = cloneref(game:GetService('Players'));
 local RunService = cloneref(game:GetService('RunService'));
@@ -14,10 +14,9 @@ local RenderStepped = RunService.RenderStepped;
 local LocalPlayer = Players.LocalPlayer;
 local Mouse = LocalPlayer:GetMouse();
 
-local ScreenGui = Instance.new('ScreenGui');
+local ScreenGui = Instance.new('ScreenGui', CoreGui2);
 
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
-ScreenGui.Parent = CoreGui;
 
 local Toggles = {};
 local Options = {};
